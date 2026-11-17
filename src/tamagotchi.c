@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#define TMG_PI 3.14159265358979323846f
+
 static float clamp(float value, float low, float high)
 {
     if (value < low) {
@@ -81,7 +83,7 @@ tmg_position_t tmg_position_estimate(const tmg_position_sample_t *samples,
 
         distance = powf(10.0f, (tx_power_dbm - sample->rssi_dbm) /
                                   (10.0f * path_loss_exponent));
-        angle = sample->aoa_degrees * (float)M_PI / 180.0f;
+        angle = sample->aoa_degrees * TMG_PI / 180.0f;
         weight = 1.0f / (1.0f + distance);
         result.position.x += weight * (sample->position.x + distance * cosf(angle));
         result.position.y += weight * (sample->position.y + distance * sinf(angle));
